@@ -29,6 +29,7 @@ function App() {
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isBackgroundOpen, setIsBackgroundOpen] = useState(false);
   const [background, setBackground] = useLocalStorage('pomodoro-background', 'none');
+  const [customImage, setCustomImage] = useLocalStorage('pomodoro-custom-image', null);
 
   const [settings, setSettings] = useLocalStorage('pomodoro-settings', {
     durations: DEFAULT_DURATIONS,
@@ -156,13 +157,25 @@ function App() {
 
   // Get current background style
   const getBackgroundStyle = () => {
+    if (background === 'custom' && customImage) {
+      return {
+        backgroundImage: `url(${customImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      };
+    }
     const bg = BACKGROUNDS.find(b => b.id === background);
     if (!bg || bg.id === 'none') return {};
     return { background: bg.value };
   };
 
+  // Check if using custom image (for glossy overlay)
+  const isUsingCustomImage = background === 'custom' && customImage;
+
   return (
-    <div className="app" style={getBackgroundStyle()}>
+    <div className={`app ${isUsingCustomImage ? 'has-custom-bg' : ''}`} style={getBackgroundStyle()}>
+      {isUsingCustomImage && <div className="glossy-overlay" />}
       <div className="app-container">
         <Header
           isDarkMode={isDarkMode}
@@ -232,6 +245,8 @@ function App() {
         onClose={() => setIsBackgroundOpen(false)}
         currentBackground={background}
         onBackgroundChange={setBackground}
+        customImage={customImage}
+        onCustomImageChange={setCustomImage}
       />
     </div>
   );

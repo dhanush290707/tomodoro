@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Image, X } from 'lucide-react';
+import { useRef } from 'react';
+import { Image, X, Upload, Trash2 } from 'lucide-react';
 import './BackgroundSelector.css';
 
 const BACKGROUNDS = [
@@ -59,7 +59,37 @@ const BACKGROUNDS = [
     },
 ];
 
-const BackgroundSelector = ({ isOpen, onClose, currentBackground, onBackgroundChange }) => {
+const BackgroundSelector = ({
+    isOpen,
+    onClose,
+    currentBackground,
+    onBackgroundChange,
+    customImage,
+    onCustomImageChange
+}) => {
+    const fileInputRef = useRef(null);
+
+    const handleFileSelect = (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const imageData = event.target.result;
+                onCustomImageChange(imageData);
+                onBackgroundChange('custom');
+                onClose();
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleRemoveCustomImage = () => {
+        onCustomImageChange(null);
+        if (currentBackground === 'custom') {
+            onBackgroundChange('none');
+        }
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -76,6 +106,54 @@ const BackgroundSelector = ({ isOpen, onClose, currentBackground, onBackgroundCh
                 </div>
 
                 <div className="bg-selector-content">
+                    {/* Custom Image Upload Section */}
+                    <div className="custom-image-section">
+                        <h3>Custom Image</h3>
+                        <div className="custom-image-controls">
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleFileSelect}
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                            />
+                            <button
+                                className="upload-btn"
+                                onClick={() => fileInputRef.current?.click()}
+                            >
+                                <Upload size={16} />
+                                <span>Upload Image</span>
+                            </button>
+                            {customImage && (
+                                <button
+                                    className="remove-btn"
+                                    onClick={handleRemoveCustomImage}
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            )}
+                        </div>
+                        {customImage && (
+                            <button
+                                className={`custom-preview-btn ${currentBackground === 'custom' ? 'active' : ''}`}
+                                onClick={() => {
+                                    onBackgroundChange('custom');
+                                    onClose();
+                                }}
+                            >
+                                <div
+                                    className="custom-preview-image"
+                                    style={{ backgroundImage: `url(${customImage})` }}
+                                />
+                                <span className="glossy-badge">✨ Glossy</span>
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="bg-divider">
+                        <span>or choose a preset</span>
+                    </div>
+
                     <div className="bg-grid">
                         {BACKGROUNDS.map((bg) => (
                             <button

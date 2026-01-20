@@ -69,6 +69,125 @@
     padding: 1rem;
 }
 
+/* Custom Image Section */
+.custom-image-section {
+    margin-bottom: 1rem;
+}
+
+.custom-image-section h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-image-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-btn:hover {
+    opacity: 0.9;
+}
+
+.remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--danger);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.custom-preview-btn {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: none;
+    padding: 0;
+}
+
+.custom-preview-btn:hover {
+    border-color: var(--border);
+}
+
+.custom-preview-btn.active {
+    border-color: var(--primary);
+}
+
+.custom-preview-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.glossy-badge {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.bg-divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 0.75rem;
+}
+
+.bg-divider::before,
+.bg-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.bg-divider span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .bg-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
