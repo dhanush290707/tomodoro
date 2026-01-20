@@ -1,23 +1,26 @@
 .mode-selector {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    gap: 0.35rem;
+    padding: 0.4rem;
     background: var(--surface);
     border-radius: 12px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .mode-btn {
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1rem;
     border: 2px solid transparent;
     border-radius: 8px;
     background: transparent;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .mode-btn:hover:not(.active) {
@@ -25,18 +28,33 @@
     color: var(--text);
 }
 
+.mode-btn:active {
+    transform: scale(0.97);
+}
+
 .mode-btn.active {
     font-weight: 600;
 }
 
+/* Mobile */
 @media (max-width: 480px) {
     .mode-selector {
-        flex-direction: column;
         gap: 0.25rem;
+        padding: 0.35rem;
+        border-radius: 10px;
     }
 
     .mode-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+    .mode-btn {
+        padding: 0.45rem 0.6rem;
+        font-size: 0.7rem;
     }
 }

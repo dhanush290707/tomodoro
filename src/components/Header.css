@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    margin-bottom: 1rem;
+    padding: 0.75rem 0;
+    margin-bottom: 0.75rem;
 }
 
 .header-brand {
@@ -26,7 +26,7 @@
 
 .header-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .header-btn {
@@ -41,6 +41,7 @@
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header-btn:hover {
@@ -48,13 +49,44 @@
     color: var(--text);
 }
 
+.header-btn:active {
+    transform: scale(0.95);
+}
+
+/* Mobile */
 @media (max-width: 480px) {
+    .header {
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+    }
+
     .brand-name {
         font-size: 1.1rem;
+    }
+
+    .brand-icon {
+        font-size: 1.25rem;
     }
 
     .header-btn {
         width: 36px;
         height: 36px;
+        border-radius: 8px;
+    }
+
+    .header-actions {
+        gap: 0.25rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+    .brand-name {
+        font-size: 1rem;
+    }
+
+    .header-btn {
+        width: 32px;
+        height: 32px;
     }
 }
