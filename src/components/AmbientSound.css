@@ -1,0 +1,128 @@
+.ambient-sound-container {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.ambient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.ambient-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.ambient-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ambient-toggle:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+}
+
+.ambient-toggle.playing {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.ambient-toggle.playing:hover {
+    opacity: 0.9;
+}
+
+.sound-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sound-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: var(--background);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sound-option:hover {
+    background: var(--surface-hover);
+}
+
+.sound-option.active {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.sound-emoji {
+    font-size: 1.5rem;
+}
+
+.sound-name {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.sound-option.active .sound-name {
+    color: var(--primary);
+}
+
+.ambient-volume {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ambient-volume label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    min-width: 50px;
+}
+
+.ambient-volume .volume-slider {
+    flex: 1;
+    accent-color: var(--primary);
+}
+
+.ambient-volume .volume-value {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    min-width: 40px;
+    text-align: right;
+}
+
+@media (max-width: 480px) {
+    .sound-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ambient-header {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+}

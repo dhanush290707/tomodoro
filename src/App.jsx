@@ -7,9 +7,11 @@ import TaskList from './components/TaskList';
 import Quote from './components/Quote';
 import Settings from './components/Settings';
 import Statistics from './components/Statistics';
+import AmbientSound from './components/AmbientSound';
 import { useTimer } from './hooks/useTimer';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useSound } from './hooks/useSound';
+import { useAmbientSound } from './hooks/useAmbientSound';
 import { TIMER_MODES, DEFAULT_DURATIONS } from './utils/constants';
 import './App.css';
 
@@ -45,6 +47,14 @@ function App() {
   });
 
   const { playNotification } = useSound(settings.volume);
+
+  const [ambientVolume, setAmbientVolume] = useLocalStorage('pomodoro-ambient-volume', 0.3);
+  const ambientSound = useAmbientSound(ambientVolume);
+
+  const handleAmbientVolumeChange = useCallback((newVolume) => {
+    setAmbientVolume(newVolume);
+    ambientSound.setVolume(newVolume);
+  }, [setAmbientVolume, ambientSound]);
 
   const handleSessionComplete = useCallback(() => {
     playNotification();
@@ -181,6 +191,16 @@ function App() {
         </div>
 
         <TaskList tasks={tasks} setTasks={setTasks} />
+
+        <AmbientSound
+          isPlaying={ambientSound.isPlaying}
+          currentSound={ambientSound.currentSound}
+          sounds={ambientSound.sounds}
+          onToggle={ambientSound.toggleSound}
+          onChangeSound={ambientSound.changeSound}
+          volume={ambientVolume}
+          onVolumeChange={handleAmbientVolumeChange}
+        />
       </div>
 
       <Settings
