@@ -1,0 +1,42 @@
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--surface);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.mode-btn {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover:not(.active) {
+    background: var(--surface-hover);
+    color: var(--text);
+}
+
+.mode-btn.active {
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .mode-selector {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .mode-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+}
