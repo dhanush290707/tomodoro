@@ -8,6 +8,7 @@ import Quote from './components/Quote';
 import Settings from './components/Settings';
 import Statistics from './components/Statistics';
 import AmbientSound from './components/AmbientSound';
+import BackgroundSelector, { BACKGROUNDS } from './components/BackgroundSelector';
 import { useTimer } from './hooks/useTimer';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useSound } from './hooks/useSound';
@@ -26,6 +27,8 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useLocalStorage('pomodoro-dark-mode', true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isStatsOpen, setIsStatsOpen] = useState(false);
+  const [isBackgroundOpen, setIsBackgroundOpen] = useState(false);
+  const [background, setBackground] = useLocalStorage('pomodoro-background', 'none');
 
   const [settings, setSettings] = useLocalStorage('pomodoro-settings', {
     durations: DEFAULT_DURATIONS,
@@ -151,14 +154,22 @@ function App() {
       : 'Pomodoro Timer';
   }, [timer.timeLeft, timer.isRunning]);
 
+  // Get current background style
+  const getBackgroundStyle = () => {
+    const bg = BACKGROUNDS.find(b => b.id === background);
+    if (!bg || bg.id === 'none') return {};
+    return { background: bg.value };
+  };
+
   return (
-    <div className="app">
+    <div className="app" style={getBackgroundStyle()}>
       <div className="app-container">
         <Header
           isDarkMode={isDarkMode}
           onThemeToggle={() => setIsDarkMode(!isDarkMode)}
           onOpenSettings={() => setIsSettingsOpen(true)}
           onOpenStats={() => setIsStatsOpen(true)}
+          onOpenBackground={() => setIsBackgroundOpen(true)}
         />
 
         <div className="main-content">
@@ -214,6 +225,13 @@ function App() {
         isOpen={isStatsOpen}
         onClose={() => setIsStatsOpen(false)}
         stats={stats}
+      />
+
+      <BackgroundSelector
+        isOpen={isBackgroundOpen}
+        onClose={() => setIsBackgroundOpen(false)}
+        currentBackground={background}
+        onBackgroundChange={setBackground}
       />
     </div>
   );

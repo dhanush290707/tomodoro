@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Settings, Sun, Moon, BarChart2, Maximize, Minimize } from 'lucide-react';
+import { Settings, Sun, Moon, BarChart2, Maximize, Minimize, Image } from 'lucide-react';
 import './Header.css';
 
-const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
+const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats, onOpenBackground }) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
 
     const toggleFullscreen = useCallback(() => {
@@ -41,6 +41,13 @@ const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
                 </button>
                 <button
                     className="header-btn"
+                    onClick={onOpenBackground}
+                    aria-label="Change background"
+                >
+                    <Image size={20} />
+                </button>
+                <button
+                    className="header-btn"
                     onClick={onOpenStats}
                     aria-label="View statistics"
                 >
@@ -66,4 +73,5 @@ const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
 };
 
 export default Header;
+
 
