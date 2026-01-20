@@ -1,7 +1,29 @@
-import { Settings, Sun, Moon, BarChart2 } from 'lucide-react';
+import { useState, useCallback, useEffect } from 'react';
+import { Settings, Sun, Moon, BarChart2, Maximize, Minimize } from 'lucide-react';
 import './Header.css';
 
 const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
+    const [isFullscreen, setIsFullscreen] = useState(false);
+
+    const toggleFullscreen = useCallback(() => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log('Error attempting fullscreen:', err);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
     return (
         <header className="header">
             <div className="header-brand">
@@ -10,6 +32,13 @@ const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
             </div>
 
             <div className="header-actions">
+                <button
+                    className="header-btn"
+                    onClick={toggleFullscreen}
+                    aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                >
+                    {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                </button>
                 <button
                     className="header-btn"
                     onClick={onOpenStats}
@@ -37,3 +66,4 @@ const Header = ({ isDarkMode, onThemeToggle, onOpenSettings, onOpenStats }) => {
 };
 
 export default Header;
+
